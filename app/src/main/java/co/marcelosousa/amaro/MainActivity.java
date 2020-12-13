@@ -4,28 +4,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
-import co.marcelosousa.amaro.model.Produtos;
-import co.marcelosousa.amaro.model.ProdutosResponse;
-import co.marcelosousa.amaro.util.ProdutosApiService;
+import co.marcelosousa.amaro.models.Produtos;
+import co.marcelosousa.amaro.models.ProdutosResponse;
+import co.marcelosousa.amaro.network.ProdutosApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProdutosAdapter.OnItemClickListener {
 
     public static final String TAG = "Dados";
 
+    private RecyclerView mRecyclerView;
+    private ProdutosAdapter mProdutosAdapter;
+    private ArrayList<Produtos> mListaProdutos;
     private Retrofit retrofit;
-
-    private RecyclerView recyclerView;
-    private ListaProdutosAdapter listaProdutosAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         //
-        recyclerView = findViewById(R.id.rv_container);
-        listaProdutosAdapter = new ListaProdutosAdapter(MainActivity.this);
-        recyclerView.setAdapter(listaProdutosAdapter);
-        recyclerView.setHasFixedSize(true);
-        GridLayoutManager layoutManager = new GridLayoutManager(this,2);
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView = findViewById(R.id.rv_container);
+        mRecyclerView.setHasFixedSize(true);
+        mProdutosAdapter = new ProdutosAdapter(MainActivity.this, mListaProdutos);
+        mRecyclerView.setAdapter(mProdutosAdapter);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        mListaProdutos = new ArrayList<>();
 
 
         // Retrofit implement
@@ -60,32 +65,37 @@ public class MainActivity extends AppCompatActivity {
         dadosResponseCall.enqueue(new Callback<ProdutosResponse>() {
             @Override
             public void onResponse(Call<ProdutosResponse> call, Response<ProdutosResponse> response) {
+
+
                 if (response.isSuccessful()) {
 
                     ProdutosResponse produtosResponse = response.body();
                     ArrayList<Produtos> listProdutos = produtosResponse.getProducts();
+                    mProdutosAdapter.addListaProduto(listProdutos);
 
-                    listaProdutosAdapter.addListaProduto(listProdutos);
-
-                    /*for (int i = 0; i < listDados.size(); i++) {
-                        Produtos produtos = listDados.get(i);
-                        Log.i(TAG, "Resultado: " + produtos.getName());
-                    }*/
 
                 } else {
-
+                    Toast.makeText(getApplicationContext(), getString(R.string.onResponse_erro), Toast.LENGTH_LONG).show();
                     Log.e(TAG, "onResponse: " + response.errorBody());
 
                 }
-
             }
 
             @Override
             public void onFailure(Call<ProdutosResponse> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), getString(R.string.onFailure), Toast.LENGTH_LONG).show();
                 Log.i(TAG, "onFailure: " + t.getMessage());
 
             }
         });
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+
+        Intent intent = new Intent(this, DetalhesActivity.class);
+        startActivity(intent);
 
     }
 }

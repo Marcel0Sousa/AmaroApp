@@ -1,6 +1,6 @@
-package co.marcelosousa.amaro.util;
+package co.marcelosousa.amaro.network;
 
-import co.marcelosousa.amaro.model.ProdutosResponse;
+import co.marcelosousa.amaro.models.ProdutosResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

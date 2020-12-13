@@ -1,4 +1,4 @@
-package co.marcelosousa.amaro.model;
+package co.marcelosousa.amaro.models;
 
 import java.util.ArrayList;
 

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import co.marcelosousa.amaro.models.Produtos;
@@ -25,6 +24,9 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
 
     public static final String TAG = "Dados";
 
+    public static final String EXTRA_URL = "imageUrl";
+    public static final String EXTRA_PRODUTO = "nomeProduto";
+
     private RecyclerView mRecyclerView;
     private ProdutosAdapter mProdutosAdapter;
     private ArrayList<Produtos> mListaProdutos;
@@ -39,13 +41,11 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
         //
         mRecyclerView = findViewById(R.id.rv_container);
         mRecyclerView.setHasFixedSize(true);
-        mProdutosAdapter = new ProdutosAdapter(MainActivity.this, mListaProdutos);
+        mProdutosAdapter = new ProdutosAdapter(MainActivity.this);
         mRecyclerView.setAdapter(mProdutosAdapter);
+        mProdutosAdapter.setOnItemClickListener(MainActivity.this);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(layoutManager);
-
-        mListaProdutos = new ArrayList<>();
-
 
         // Retrofit implement
         retrofit = new Retrofit.Builder()
@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
                     ArrayList<Produtos> listProdutos = produtosResponse.getProducts();
                     mProdutosAdapter.addListaProduto(listProdutos);
 
-
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.onResponse_erro), Toast.LENGTH_LONG).show();
                     Log.e(TAG, "onResponse: " + response.errorBody());
@@ -95,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
     public void onItemClick(int position) {
 
         Intent intent = new Intent(this, DetalhesActivity.class);
+        /*Produtos clickedItem = mListaProdutos.get(position);
+        intent.putExtra(EXTRA_URL, clickedItem.getImage());
+        intent.putExtra(EXTRA_PRODUTO, clickedItem.getName());*/
         startActivity(intent);
 
     }

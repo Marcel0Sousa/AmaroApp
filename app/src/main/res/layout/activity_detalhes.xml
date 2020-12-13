@@ -5,14 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_margin="4dp"
     tools:context=".DetalhesActivity">
 
     <ImageView
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:id="@+id/img_detalhes"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@drawable/ic_no_photos" />
 
     <TextView
         android:id="@+id/nome_detalhes"
@@ -21,7 +24,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
         android:gravity="center_horizontal"
-        android:text="Nome Produto"
+        android:text="@string/nome_produto"
         android:textAllCaps="true"
         android:textSize="12sp" />
 

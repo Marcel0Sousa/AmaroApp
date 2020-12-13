@@ -34,10 +34,9 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
         mClickListener = listener;
     }
 
-    public ProdutosAdapter(Context context, ArrayList<Produtos> listaProdutos) {
+    public ProdutosAdapter(Context context) {
         mContext = context;
-        //mProdutos = listaProdutos;
-        this.mProdutos = new ArrayList<>();
+        mProdutos = new ArrayList<>();
     }
 
     @NonNull
@@ -49,8 +48,9 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Produtos produtos = mProdutos.get(position);
+
+
         holder.mNomeProduto.setText(produtos.getName());
         holder.mValorProduto.setText(produtos.getActual_price());
 
@@ -77,6 +77,8 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
+        int position;
+
         private ImageView mImageProduto;
         private TextView mNomeProduto;
         private TextView mValorProduto;
@@ -88,9 +90,14 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
             mNomeProduto = itemView.findViewById(R.id.nome_produto);
             mValorProduto = itemView.findViewById(R.id.valor_produto);
 
-            itemView.setOnClickListener(v -> {
-                int positon = getAdapterPosition();
-
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mClickListener != null && position != RecyclerView.NO_POSITION) {
+                        position = getAdapterPosition();
+                        mClickListener.onItemClick(position);
+                    }
+                }
             });
         }
     }

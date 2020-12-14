@@ -4,4 +4,6 @@
     <string name="onFailure">Verifique sua conexão com a internet e tente novamente</string>
     <string name="nome_produto">Nome Produto</string>
     <string name="valor_produto">Valor Produto</string>
+    <string name="valor_regular"><strike>Valor Regular</strike></string>
+    <string name="parcelar">"Até "</string>
 </resources>

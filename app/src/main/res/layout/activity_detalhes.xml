@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_height="match_parent"
     android:layout_margin="4dp"
+    android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context=".DetalhesActivity">
 
     <ImageView
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
         android:id="@+id/img_detalhes"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:src="@drawable/ic_no_photos" />
 
     <TextView
@@ -25,7 +26,46 @@
         android:layout_marginTop="6dp"
         android:gravity="center_horizontal"
         android:text="@string/nome_produto"
-        android:textAllCaps="true"
-        android:textSize="12sp" />
+        android:textColor="#2E2E2E"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/valor_detalhes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/valor_produto"
+            android:textColor="#009688"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/valor_reg_detalhes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@string/valor_regular"
+            android:textColor="#8E8E8E"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/parcelar_produc_detalhes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/parcelar"
+        android:textColor="#E82E2E2E"
+        android:textSize="12dp"
+        android:textStyle="normal" />
 
 </LinearLayout>

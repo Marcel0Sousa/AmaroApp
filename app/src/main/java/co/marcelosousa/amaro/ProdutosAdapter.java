@@ -16,13 +16,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import co.marcelosousa.amaro.models.Produtos;
-import okhttp3.internal.cache.DiskLruCache;
 
 public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<Produtos> mProdutos;
-
+    private ArrayList<Produtos> mListaProdutos;
+    private Produtos produtos;
     private OnItemClickListener mClickListener;
 
     public interface OnItemClickListener {
@@ -35,8 +34,9 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
     }
 
     public ProdutosAdapter(Context context) {
-        mContext = context;
-        mProdutos = new ArrayList<>();
+        this.mContext = context;
+        this.mListaProdutos = new ArrayList<>();
+        //this.mProdutos = mListaProdutos;
     }
 
     @NonNull
@@ -48,16 +48,14 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Produtos produtos = mProdutos.get(position);
+        produtos = mListaProdutos.get(position);
 
 
         holder.mNomeProduto.setText(produtos.getName());
-        holder.mValorProduto.setText(produtos.getActual_price());
 
         Glide.with(mContext)
                 .load(produtos.getImage())
                 .fitCenter()
-                .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.ic_no_photos)
                 .into(holder.mImageProduto);
@@ -66,12 +64,11 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
     }
 
     @Override
-    public int getItemCount() {
-        return mProdutos.size();
+    public int getItemCount() { return mListaProdutos.size();
     }
 
     public void addListaProduto(ArrayList<Produtos> listProdutos) {
-        mProdutos.addAll(listProdutos);
+        mListaProdutos.addAll(listProdutos);
         notifyDataSetChanged();
     }
 
@@ -81,14 +78,12 @@ public class ProdutosAdapter extends RecyclerView.Adapter<ProdutosAdapter.ViewHo
 
         private ImageView mImageProduto;
         private TextView mNomeProduto;
-        private TextView mValorProduto;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             mImageProduto = itemView.findViewById(R.id.img_produto);
             mNomeProduto = itemView.findViewById(R.id.nome_produto);
-            mValorProduto = itemView.findViewById(R.id.valor_produto);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

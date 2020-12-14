@@ -20,12 +20,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static co.marcelosousa.amaro.models.Assets.EXTRA_PRODUTO;
+import static co.marcelosousa.amaro.models.Assets.EXTRA_URL;
+import static co.marcelosousa.amaro.models.Assets.EXTRA_VALOR_ATUAL;
+import static co.marcelosousa.amaro.models.Assets.EXTRA_REGULAR;
+import static co.marcelosousa.amaro.models.Assets.EXTRA_PARCELAR;
+import static co.marcelosousa.amaro.models.Assets.TAG;
+
 public class MainActivity extends AppCompatActivity implements ProdutosAdapter.OnItemClickListener {
-
-    public static final String TAG = "Dados";
-
-    public static final String EXTRA_URL = "imageUrl";
-    public static final String EXTRA_PRODUTO = "nomeProduto";
 
     private RecyclerView mRecyclerView;
     private ProdutosAdapter mProdutosAdapter;
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //
         mRecyclerView = findViewById(R.id.rv_container);
         mRecyclerView.setHasFixedSize(true);
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
         mProdutosAdapter.setOnItemClickListener(MainActivity.this);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(layoutManager);
+
+        mListaProdutos = new ArrayList<>();
 
         // Retrofit implement
         retrofit = new Retrofit.Builder()
@@ -70,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
                 if (response.isSuccessful()) {
 
                     ProdutosResponse produtosResponse = response.body();
-                    ArrayList<Produtos> listProdutos = produtosResponse.getProducts();
-                    mProdutosAdapter.addListaProduto(listProdutos);
+                    mListaProdutos = produtosResponse.getProducts();
+                    mProdutosAdapter.addListaProduto(mListaProdutos);
 
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.onResponse_erro), Toast.LENGTH_LONG).show();
@@ -94,9 +97,12 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
     public void onItemClick(int position) {
 
         Intent intent = new Intent(this, DetalhesActivity.class);
-        /*Produtos clickedItem = mListaProdutos.get(position);
+        Produtos clickedItem = mListaProdutos.get(position);
         intent.putExtra(EXTRA_URL, clickedItem.getImage());
-        intent.putExtra(EXTRA_PRODUTO, clickedItem.getName());*/
+        intent.putExtra(EXTRA_PRODUTO, clickedItem.getName());
+        intent.putExtra(EXTRA_VALOR_ATUAL, clickedItem.getActual_price());
+        intent.putExtra(EXTRA_REGULAR, clickedItem.getRegular_price());
+        intent.putExtra(EXTRA_PARCELAR, clickedItem.getInstallments());
         startActivity(intent);
 
     }

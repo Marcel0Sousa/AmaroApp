@@ -36,16 +36,8 @@
                 android:gravity="center_horizontal"
                 android:maxLines="1"
                 android:text="@string/nome_produto"
-                android:textAllCaps="true"
+                android:textColor="#2E2E2E"
                 android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/valor_produto"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/valor_produto"
-                android:textSize="14dp"
-                android:textStyle="bold" />
 
         </LinearLayout>
 

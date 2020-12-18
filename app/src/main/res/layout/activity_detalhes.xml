@@ -37,20 +37,16 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_marginTop="25dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tamanhosP_detalhes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Tamanhos" />
-
-            <TextView
-                android:id="@+id/tamanhosM_detalhes"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:id="@+id/tamanhos_detalhes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"

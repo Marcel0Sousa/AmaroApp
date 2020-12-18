@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import co.marcelosousa.amaro.models.Produtos;
@@ -21,9 +22,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static co.marcelosousa.amaro.models.Assets.EXTRA_DISPONIVEL;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_PRODUTO;
-import static co.marcelosousa.amaro.models.Assets.EXTRA_TAMANHOS_M;
-import static co.marcelosousa.amaro.models.Assets.EXTRA_TAMANHOS_P;
+import static co.marcelosousa.amaro.models.Assets.EXTRA_TAMANHOS;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_URL;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_VALOR_ATUAL;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_REGULAR;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
     private RecyclerView mRecyclerView;
     private ProdutosAdapter mProdutosAdapter;
     private ArrayList<Produtos> mListaProdutos;
-    private ArrayList<Tamanhos> mTamanhos;
+    //private ArrayList<Tamanhos> mTamanhos;
     private Retrofit retrofit;
 
     @Override
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
         mRecyclerView.setLayoutManager(layoutManager);
 
         mListaProdutos = new ArrayList<>();
-        mTamanhos = new ArrayList<>();
+        //mTamanhos = new ArrayList<>();
 
         // Retrofit implement
         retrofit = new Retrofit.Builder()
@@ -122,12 +123,13 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
         intent.putExtra(EXTRA_REGULAR, clickedItem.getRegular_price());
         intent.putExtra(EXTRA_PARCELAR, clickedItem.getInstallments());
 
+        StringBuilder tamanhos = new StringBuilder();
         for (Tamanhos t : clickedItem.getSizes()) {
+            tamanhos.append(t.getSize()).append(" ");
+            intent.putExtra(EXTRA_TAMANHOS, (Serializable) tamanhos);
+            intent.putExtra(EXTRA_DISPONIVEL, (Serializable) tamanhos);
 
-            intent.putExtra(EXTRA_TAMANHOS_P, t.getSize());
-            intent.putExtra(EXTRA_TAMANHOS_M, t.getSize());
-
-            Log.i(TAG, "Tamanhos " + t.getSize() + t.isAvailable());
+            Log.i(TAG, "Tamanhos " + t.getSize());
         }
 
         startActivity(intent);

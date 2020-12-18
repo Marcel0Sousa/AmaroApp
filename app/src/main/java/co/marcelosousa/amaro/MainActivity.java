@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import co.marcelosousa.amaro.models.Produtos;
 import co.marcelosousa.amaro.models.ProdutosResponse;
+import co.marcelosousa.amaro.models.Tamanhos;
 import co.marcelosousa.amaro.network.ProdutosApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,6 +22,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static co.marcelosousa.amaro.models.Assets.EXTRA_PRODUTO;
+import static co.marcelosousa.amaro.models.Assets.EXTRA_TAMANHOS_M;
+import static co.marcelosousa.amaro.models.Assets.EXTRA_TAMANHOS_P;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_URL;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_VALOR_ATUAL;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_REGULAR;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
     private RecyclerView mRecyclerView;
     private ProdutosAdapter mProdutosAdapter;
     private ArrayList<Produtos> mListaProdutos;
+    private ArrayList<Tamanhos> mTamanhos;
     private Retrofit retrofit;
 
     @Override
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
         mRecyclerView.setLayoutManager(layoutManager);
 
         mListaProdutos = new ArrayList<>();
+        mTamanhos = new ArrayList<>();
 
         // Retrofit implement
         retrofit = new Retrofit.Builder()
@@ -70,15 +75,28 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
             public void onResponse(Call<ProdutosResponse> call, Response<ProdutosResponse> response) {
 
 
-                if (response.isSuccessful()) {
+                if (!response.isSuccessful()) {
+
+                    Toast.makeText(getApplicationContext(), getString(R.string.onResponse_erro), Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "onResponse: " + response.errorBody());
+
+                } else {
 
                     ProdutosResponse produtosResponse = response.body();
+                    assert produtosResponse != null;
                     mListaProdutos = produtosResponse.getProducts();
                     mProdutosAdapter.addListaProduto(mListaProdutos);
 
-                } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.onResponse_erro), Toast.LENGTH_LONG).show();
-                    Log.e(TAG, "onResponse: " + response.errorBody());
+                    for (int i = 0; i < mListaProdutos.size(); i++) {
+                        Produtos produtos = mListaProdutos.get(i);
+                        Log.i(TAG, "Produtos " + produtos.getName());
+
+                        for (Tamanhos t : produtos.getSizes()) {
+                            Log.i(TAG, "Tamanhos " + t.getSize() + t.isAvailable());
+                        }
+
+                        Log.i(TAG, "------------------");
+                    }
 
                 }
             }
@@ -103,6 +121,15 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
         intent.putExtra(EXTRA_VALOR_ATUAL, clickedItem.getActual_price());
         intent.putExtra(EXTRA_REGULAR, clickedItem.getRegular_price());
         intent.putExtra(EXTRA_PARCELAR, clickedItem.getInstallments());
+
+        for (Tamanhos t : clickedItem.getSizes()) {
+
+            intent.putExtra(EXTRA_TAMANHOS_P, t.getSize());
+            intent.putExtra(EXTRA_TAMANHOS_M, t.getSize());
+
+            Log.i(TAG, "Tamanhos " + t.getSize() + t.isAvailable());
+        }
+
         startActivity(intent);
 
     }

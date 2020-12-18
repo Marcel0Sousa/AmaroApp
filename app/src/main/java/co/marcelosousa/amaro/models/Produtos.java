@@ -1,5 +1,8 @@
 package co.marcelosousa.amaro.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Produtos {
 
     private String name;
@@ -8,11 +11,13 @@ public class Produtos {
     private String actual_price;
     private String installments;
     private boolean on_sale;
+    private ArrayList<Tamanhos> sizes;
 
-    public Produtos(String name, String image, String actual_price) {
+    public Produtos(String name, String image, String actual_price, ArrayList<Tamanhos> sizes) {
         this.name = name;
         this.image = image;
         this.actual_price = actual_price;
+        this.sizes = sizes;
     }
 
     public String getName() {
@@ -61,5 +66,13 @@ public class Produtos {
 
     public void setOn_sale(boolean on_sale) {
         this.on_sale = on_sale;
+    }
+
+    public ArrayList<Tamanhos> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(ArrayList<Tamanhos> sizes) {
+        this.sizes = sizes;
     }
 }

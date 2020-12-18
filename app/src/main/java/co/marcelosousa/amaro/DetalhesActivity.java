@@ -1,6 +1,5 @@
 package co.marcelosousa.amaro;
 
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,6 +13,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import static co.marcelosousa.amaro.models.Assets.EXTRA_PRODUTO;
+import static co.marcelosousa.amaro.models.Assets.EXTRA_TAMANHOS_M;
+import static co.marcelosousa.amaro.models.Assets.EXTRA_TAMANHOS_P;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_URL;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_VALOR_ATUAL;
 import static co.marcelosousa.amaro.models.Assets.EXTRA_REGULAR;
@@ -22,7 +23,8 @@ import static co.marcelosousa.amaro.models.Assets.EXTRA_PARCELAR;
 public class DetalhesActivity extends AppCompatActivity {
 
     private ImageView imageView;
-    private TextView mNomeProduto, mValorProduto, mValorRegularProduto, mParcelarProduto;
+    private TextView mNomeProduto, mValorProduto, mValorRegularProduto, mParcelarProduto,
+            mTamanhoProdutoP, mTamanhoProdutoM;
 
 
     @Override
@@ -37,12 +39,17 @@ public class DetalhesActivity extends AppCompatActivity {
         String valorProduto = intent.getStringExtra(EXTRA_VALOR_ATUAL);
         String valorRegularProduto = intent.getStringExtra(EXTRA_REGULAR);
         String parcelarProduto = intent.getStringExtra(EXTRA_PARCELAR);
+        String tamannhoProdutoP = intent.getStringExtra(EXTRA_TAMANHOS_P);
+        String tamannhoProdutoM = intent.getStringExtra(EXTRA_TAMANHOS_M);
 
         imageView = findViewById(R.id.img_detalhes);
         mNomeProduto = findViewById(R.id.nome_detalhes);
         mValorProduto = findViewById(R.id.valor_detalhes);
         mValorRegularProduto = findViewById(R.id.valor_reg_detalhes);
         mParcelarProduto = findViewById(R.id.parcelar_produc_detalhes);
+        mTamanhoProdutoP = findViewById(R.id.tamanhosP_detalhes);
+        mTamanhoProdutoM = findViewById(R.id.tamanhosM_detalhes);
+
 
         if (imagaUrl.isEmpty()) {
             Glide.with(this)
@@ -62,11 +69,14 @@ public class DetalhesActivity extends AppCompatActivity {
 
         mNomeProduto.setText(nomeProduto);
         mParcelarProduto.setText(getString(R.string.parcelar) + parcelarProduto);
+        mTamanhoProdutoP.setText(tamannhoProdutoP);
+        mTamanhoProdutoM.setText(tamannhoProdutoM);
 
         if (valorRegularProduto.equals(valorProduto)) {
 
             mValorRegularProduto.setText(valorRegularProduto);
             mValorRegularProduto.setTextColor(Color.parseColor("#009688"));
+            mValorRegularProduto.setTextSize(18);
             mValorProduto.setVisibility(View.GONE);
 
         } else {

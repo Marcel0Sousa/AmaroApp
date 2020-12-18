@@ -8,4 +8,6 @@ public class Assets {
     public static final String EXTRA_VALOR_ATUAL = "valorAtualProduto";
     public static final String EXTRA_REGULAR= "valorRegularProduto";
     public static final String EXTRA_PARCELAR= "parcelarProduto";
+    public static final String EXTRA_TAMANHOS_P= "tamanhoProduto";
+    public static final String EXTRA_TAMANHOS_M= "tamanhoProduto";
 }

@@ -1,9 +1,11 @@
 package co.marcelosousa.amaro.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Produtos {
+import java.util.ArrayList;
+
+public class Produtos implements Parcelable {
 
     private String name;
     private String image;
@@ -13,12 +15,49 @@ public class Produtos {
     private boolean on_sale;
     private ArrayList<Tamanhos> sizes;
 
-    public Produtos(String name, String image, String actual_price, ArrayList<Tamanhos> sizes) {
+    public Produtos(String name, String image, String actual_price) {
         this.name = name;
         this.image = image;
         this.actual_price = actual_price;
-        this.sizes = sizes;
     }
+
+    protected Produtos(Parcel in) {
+        name = in.readString();
+        image = in.readString();
+        regular_price = in.readString();
+        actual_price = in.readString();
+        installments = in.readString();
+        on_sale = in.readByte() != 0;
+        sizes = in.createTypedArrayList(Tamanhos.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(image);
+        parcel.writeString(regular_price);
+        parcel.writeString(actual_price);
+        parcel.writeString(installments);
+        parcel.writeByte((byte) (on_sale ? 1 : 0));
+        parcel.writeTypedList(sizes);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Produtos> CREATOR = new Creator<Produtos>() {
+        @Override
+        public Produtos createFromParcel(Parcel in) {
+            return new Produtos(in);
+        }
+
+        @Override
+        public Produtos[] newArray(int size) {
+            return new Produtos[size];
+        }
+    };
 
     public String getName() {
         return name;

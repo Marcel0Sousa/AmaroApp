@@ -10,4 +10,5 @@ public class Assets {
     public static final String EXTRA_PARCELAR= "parcelarProduto";
     public static final String EXTRA_TAMANHOS= "tamanhoProduto";
     public static final String EXTRA_DISPONIVEL= "tamanhoDisponivelProduto";
+    public static final String EXTRA_COLOR= "#C6C4C4";
 }

@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -36,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
     private RecyclerView mRecyclerView;
     private ProdutosAdapter mProdutosAdapter;
     private ArrayList<Produtos> mListaProdutos;
-    //private ArrayList<Tamanhos> mTamanhos;
     private Retrofit retrofit;
 
     @Override
@@ -52,9 +53,6 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
         mProdutosAdapter.setOnItemClickListener(MainActivity.this);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(layoutManager);
-
-        mListaProdutos = new ArrayList<>();
-        //mTamanhos = new ArrayList<>();
 
         // Retrofit implement
         retrofit = new Retrofit.Builder()
@@ -88,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
                     mListaProdutos = produtosResponse.getProducts();
                     mProdutosAdapter.addListaProduto(mListaProdutos);
 
-                    for (int i = 0; i < mListaProdutos.size(); i++) {
+                    /*for (int i = 0; i < mListaProdutos.size(); i++) {
                         Produtos produtos = mListaProdutos.get(i);
                         Log.i(TAG, "Produtos " + produtos.getName());
 
@@ -97,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
                         }
 
                         Log.i(TAG, "------------------");
-                    }
+                    }*/
 
                 }
             }
@@ -117,20 +115,8 @@ public class MainActivity extends AppCompatActivity implements ProdutosAdapter.O
 
         Intent intent = new Intent(this, DetalhesActivity.class);
         Produtos clickedItem = mListaProdutos.get(position);
-        intent.putExtra(EXTRA_URL, clickedItem.getImage());
-        intent.putExtra(EXTRA_PRODUTO, clickedItem.getName());
-        intent.putExtra(EXTRA_VALOR_ATUAL, clickedItem.getActual_price());
-        intent.putExtra(EXTRA_REGULAR, clickedItem.getRegular_price());
-        intent.putExtra(EXTRA_PARCELAR, clickedItem.getInstallments());
+        intent.putExtra("produto", clickedItem);
 
-        StringBuilder tamanhos = new StringBuilder();
-        for (Tamanhos t : clickedItem.getSizes()) {
-            tamanhos.append(t.getSize()).append(" ");
-            intent.putExtra(EXTRA_TAMANHOS, (Serializable) tamanhos);
-            intent.putExtra(EXTRA_DISPONIVEL, (Serializable) tamanhos);
-
-            Log.i(TAG, "Tamanhos " + t.getSize());
-        }
 
         startActivity(intent);
 

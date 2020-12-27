@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F5F5"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".DetalhesActivity">
 
@@ -37,20 +37,107 @@
             android:textStyle="bold" />
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="46dp"
+            android:layout_marginTop="25dp">
 
             <TextView
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:id="@+id/tamanhos_detalhes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:text="TAMANHO"
+                android:layout_gravity="center"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="#EAEAEA"
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:layout_height="2dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tamanhoPP_detalhes"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_tamanhos_txtv"
                 android:gravity="center"
-                android:text="Tamanhos" />
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tamanhoP_detalhes"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_tamanhos_txtv"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tamanhoM_detalhes"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_tamanhos_txtv"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tamanhoG_detalhes"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_tamanhos_txtv"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tamanhoGG_detalhes"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bg_tamanhos_txtv"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tamanhoU_detalhes"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/bg_tamanhos_txtv"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
         </LinearLayout>
 
     </LinearLayout>

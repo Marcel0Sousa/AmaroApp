@@ -2,7 +2,7 @@ AmaroApp
 
 ### Screenshot
 
-<img src="https://i.imgur.com/8B3dT9w.png" alt="Script">
-<img src="https://i.imgur.com/iWO2ymG.png" alt="Script">
+<img src="https://i.imgur.com/RDOXn6q.png" alt="Script">
+<img src="https://i.imgur.com/QG5GkY2.png" alt="Script">
 
 
